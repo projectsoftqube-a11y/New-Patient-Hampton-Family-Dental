@@ -4,6 +4,7 @@ import ImageSlot from "./ImageSlot";
 import ReviewNote from "./ReviewNote";
 import { Reveal, Section, SectionHeading } from "./Section";
 import { DENTISTS } from "@/lib/content";
+import { cn } from "@/lib/utils";
 
 /**
  * Compact horizontal roster cards.
@@ -32,10 +33,16 @@ export default function MeetTheDentists() {
                 src={dentist.src}
                 dimensions="900 × 1100"
                 alt={dentist.alt}
-                className="h-20 w-20 shrink-0 rounded-full ring-1 ring-beige-dark/50 sm:h-24 sm:w-24"
+                className={cn(
+                  "h-20 w-20 shrink-0 rounded-full ring-1 ring-beige-dark/50 sm:h-24 sm:w-24",
+                  // A contained icon needs a white ground behind it; the beige
+                  // tint the photos sit on would show as a ring around the art.
+                  dentist.contain && "bg-white"
+                )}
+                imgClassName={dentist.contain ? "object-contain p-1.5" : undefined}
                 // Renders at 96px; next/image picks a 2x candidate for retina.
                 sizes="96px"
-                objectPosition="center 20%"
+                objectPosition={dentist.objectPosition}
               />
 
               <figcaption className="min-w-0">
@@ -52,7 +59,9 @@ export default function MeetTheDentists() {
       </div>
 
       <ReviewNote>
-        [CONFIRM] Dentist bios and photos with the office.
+        [CONFIRM] Dentist bios with the office. Photos match the main website:
+        Dr. Brenner&apos;s portrait, and the generic avatar for Dr. Dudhat until
+        a real photo is supplied.
       </ReviewNote>
     </Section>
   );

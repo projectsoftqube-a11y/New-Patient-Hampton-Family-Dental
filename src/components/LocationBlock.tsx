@@ -1,7 +1,6 @@
 "use client";
 
 import { Clock, MapPin, Navigation } from "lucide-react";
-import ImageSlot from "./ImageSlot";
 import ReviewNote from "./ReviewNote";
 import { Reveal, Section, SectionHeading } from "./Section";
 import { HOURS } from "@/lib/content";
@@ -15,27 +14,14 @@ export default function LocationBlock() {
         title="Find us in Southampton"
       />
 
-      {/* The building itself, before the map. A patient who has seen the
-          frontage recognises it from the road; a map pin alone still leaves
-          them circling a suburban office park looking for the door. */}
-      <Reveal className="mt-8 min-w-0">
-        <ImageSlot
-          label="Practice exterior"
-          file="lp/office-exterior.webp"
-          src="/images/lp/office-exterior.webp"
-          dimensions="1600 × 900"
-          alt="Exterior of Hampton Family Dental at 283 Second Street Pike, Southampton, PA"
-          className="aspect-[16/9] w-full rounded-3xl ring-1 ring-beige-dark/60 sm:aspect-[2/1]"
-          sizes="(max-width: 1024px) 100vw, 1100px"
-          objectPosition="center 55%"
-        />
-      </Reveal>
+      {/* The practice-exterior photo sat here; removed at the client's request
+          (Aug 2026). The map and address card now carry the section. */}
 
       {/* items-stretch (the grid default) plus h-full on both children makes
           the two columns share a height that the taller one - the address and
           hours card - decides. The map then fills whatever that turns out to
           be, so the row stays square however the hours list grows. */}
-      <div className="mt-4 grid gap-4 lg:grid-cols-[1.15fr_0.85fr] lg:gap-6">
+      <div className="mt-8 grid gap-4 lg:grid-cols-[1.15fr_0.85fr] lg:gap-6">
         {/* Map */}
         <Reveal className="min-w-0 lg:h-full">
           {/* Live Google Maps embed - no API key needed for the /maps/embed
@@ -46,9 +32,10 @@ export default function LocationBlock() {
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl ring-1 ring-beige-dark/60 sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[520px]">
             <iframe
               title="Map showing Hampton Family Dental at 283 Second Street Pike, Suite 140, Southampton, PA 18966"
-              src="https://www.google.com/maps?q=283+Second+Street+Pike,+Suite+140,+Southampton,+PA+18966&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1115.386714131822!2d-75.04622525048282!3d40.164562049177654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6ade9ce4d621f%3A0x3f9abf9e93dba17b!2sHampton%20Family%20Dental!5e1!3m2!1sen!2sin!4v1786532574944!5m2!1sen!2sin"
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
               className="absolute inset-0 h-full w-full border-0"
             />
           </div>
@@ -117,10 +104,9 @@ export default function LocationBlock() {
               </dl>
 
               <ReviewNote>
-                [CONFIRM] Wednesday and Fri–Sun hours with the office. Until they
-                are confirmed the schema below omits those days rather than
-                guessing - wrong hours in structured data send emergency patients
-                to a locked door.
+                Hours confirmed by the office (Aug 2026): Wednesday 8 AM – 2 PM,
+                Fri–Sun closed. All seven days now render real times and are
+                emitted in the page schema.
               </ReviewNote>
             </div>
           </div>

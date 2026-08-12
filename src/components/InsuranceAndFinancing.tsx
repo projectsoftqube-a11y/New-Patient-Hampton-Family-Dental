@@ -4,22 +4,28 @@ import Image from "next/image";
 import { Check, CreditCard, HeartHandshake, Phone, ShieldCheck } from "lucide-react";
 import ReviewNote from "./ReviewNote";
 import { Reveal, Section, SectionHeading } from "./Section";
-import { CARRIERS, PHONE_DISPLAY, PHONE_TEL, type Carrier } from "@/lib/lp.config";
+import {
+  CARRIERS,
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  PRACTICE_EMAIL,
+  type Carrier,
+} from "@/lib/lp.config";
 
 const FINANCING = [
   {
     icon: ShieldCheck,
-    title: "Most insurance accepted",
+    title: "Most PPO insurances accepted",
     body: "We bill your plan directly, so you pay less out of pocket.",
   },
   {
     icon: HeartHandshake,
-    title: "No insurance? Membership plan",
-    body: "Cleanings, exams & X-rays plus member pricing on treatment - from $[X]/month.",
+    title: "No insurance, No Problem!",
+    body: "Get our in-office membership plan.",
   },
   {
     icon: CreditCard,
-    title: "Flexible payment plans",
+    title: "Ask about our Financing plans",
     body: "Spread the cost of any treatment so it fits your budget.",
   },
 ];
@@ -40,8 +46,20 @@ export default function InsuranceAndFinancing({
       {/* ── Insurance ── */}
       <SectionHeading
         eyebrow="Cost & coverage"
-        title="Most insurance welcome"
-        lead="Bring your card - we'll check your coverage for you, no guesswork."
+        title="PPO Insurances Accepted"
+        lead={
+          <>
+            Email us a picture of your insurance card at{" "}
+            <a
+              href={`mailto:${PRACTICE_EMAIL}`}
+              data-cta="insurance-email"
+              className="font-semibold text-primary underline decoration-primary/30 underline-offset-2 transition-colors hover:decoration-primary"
+            >
+              {PRACTICE_EMAIL}
+            </a>{" "}
+            and we will get your insurance verified!
+          </>
+        }
       />
 
       {/*
@@ -56,10 +74,13 @@ export default function InsuranceAndFinancing({
         matter how many carriers the office adds or which ones have artwork.
       */}
       <Reveal delay={0.05}>
-        {/* 3 columns, not 4. Six carriers divide evenly into three, so the
-            grid always closes as two full rows - at four columns the seventh
-            cell stranded a gap on the second row. */}
-        <ul className="mt-7 grid grid-cols-2 gap-2.5 sm:gap-3 md:grid-cols-3">
+        {/* Auto-fit rather than a fixed column count. The list used to be six
+            carriers, which divided evenly into three columns; dropping Delta
+            Dental leaves five, and a fixed 3-col grid stranded a hole in the
+            bottom-right. Auto-fit sizes the tracks and justify-center pulls a
+            short final row into the middle, so the block stays a tidy panel at
+            any carrier count the office lands on. */}
+        <ul className="mt-7 grid grid-cols-2 justify-center gap-2.5 sm:gap-3 md:grid-cols-[repeat(auto-fit,minmax(180px,1fr))]">
           {carriers.map((carrier) => (
             <li
               key={carrier.slug}
@@ -120,8 +141,8 @@ export default function InsuranceAndFinancing({
                 Don&apos;t see your plan?
               </span>
               <span className="mt-0.5 block text-[12.5px] leading-tight text-navy/60">
-                We accept more than the plans listed here - call and
-                we&apos;ll check your coverage in a minute.
+                + many more PPO insurances - call and we&apos;ll check your
+                coverage in a minute.
               </span>
             </span>
           </span>
@@ -187,8 +208,9 @@ export default function InsuranceAndFinancing({
         </Reveal>
 
         <ReviewNote>
-          [CONFIRM] Membership price and financing options with the office -
-          replace the $[X]/month placeholder before this page takes paid traffic.
+          [CONFIRM] Membership plan and financing details with the office. The
+          cards deliberately carry no price - the office asks patients to call
+          for both.
         </ReviewNote>
       </div>
     </Section>

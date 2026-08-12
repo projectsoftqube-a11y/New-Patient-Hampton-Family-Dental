@@ -12,7 +12,7 @@ const FIELDS = [
   { key: "name", label: "Your name", type: "text", autoComplete: "name" },
   {
     key: "phone",
-    label: "Best phone number",
+    label: "Phone Number",
     type: "tel",
     autoComplete: "tel",
     inputMode: "tel" as const,

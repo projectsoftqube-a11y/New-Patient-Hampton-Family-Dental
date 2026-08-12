@@ -99,22 +99,22 @@ export const WHY_US = [
   },
   {
     lead: "Easy on your wallet.",
-    body: "Most insurance accepted, plus a membership plan if you don't have any.",
+    body: "Most PPO insurances accepted. We also offer an in-office membership for patients with no dental insurance.",
   },
 ];
 
 /** Financing / affordability cards. */
 export const FINANCING = [
   {
-    title: "Most insurance accepted",
+    title: "Most PPO insurances accepted",
     body: "We bill your plan directly, so you pay less out of pocket.",
   },
   {
-    title: "No insurance? Membership plan",
-    body: "Cleanings, exams & X-rays plus member pricing on treatment - from $[X]/month.",
+    title: "No insurance, No Problem!",
+    body: "Get our in-office membership plan.",
   },
   {
-    title: "Flexible payment plans",
+    title: "Ask about our Financing plans",
     body: "Spread the cost of any treatment so it fits your budget.",
   },
 ];
@@ -125,20 +125,43 @@ export const FINANCING = [
  * Portraits are shared with the Emergency LP - same people, same practice.
  * [CONFIRM] bios with the office.
  */
-export const DENTISTS = [
+export type Dentist = {
+  name: string;
+  bio: string;
+  file: string;
+  src: string;
+  alt: string;
+  /** object-position for the round crop. */
+  objectPosition?: string;
+  /** Contain rather than cover - for icon art, not photographs. */
+  contain?: boolean;
+};
+
+export const DENTISTS: Dentist[] = [
   {
     name: "Dr. Jeffrey Brenner",
     bio: "General & restorative dentistry. Caring for Southampton families for years.",
     file: "lp/dr-jeffrey-brenner.webp",
     src: "/images/lp/dr-jeffrey-brenner.webp",
     alt: "Dr. Jeffrey Brenner, general and restorative dentist at Hampton Family Dental in Southampton, PA",
+    /** Pulls the crop up to the face on a tall portrait. */
+    objectPosition: "center 20%",
   },
   {
     name: "Dr. Keyur Dudhat",
     bio: "Gentle, patient-first care for the whole family.",
-    file: "lp/dr-keyur-dudhat.webp",
-    src: "/images/lp/dr-keyur-dudhat.webp",
+    // Generic outline avatar, at the office's request - the same placeholder
+    // the main website uses - until a real portrait is supplied.
+    file: "lp/doctor-avatar.jpg",
+    src: "/images/lp/doctor-avatar.jpg",
     alt: "Dr. Keyur Dudhat, family dentist at Hampton Family Dental in Southampton, PA",
+    /**
+     * The avatar is a centred icon on white with its own margin, not a
+     * photograph. Cropping it like one (center 20%, object-cover) cuts the
+     * head off inside the round frame, so it is contained and centred.
+     */
+    objectPosition: "center",
+    contain: true,
   },
 ];
 
@@ -164,8 +187,8 @@ export const REVIEWS = [
 /** "Good to know" - also emitted as FAQPage structured data. */
 export const FAQS: AccordionItem[] = [
   {
-    q: "What's included in the $99 new-patient special?",
-    a: "Your exam, digital X-rays, and a professional cleaning - everything for a healthy start.* If we ever spot something that needs treatment, we'll explain it and the cost before you decide anything.",
+    q: "What's included in the first visit?",
+    a: "Your exam, digital X-rays, and a professional cleaning - everything for a healthy start. If we ever spot something that needs treatment, we'll explain it and the cost before you decide anything.",
   },
   {
     q: "How long is the first visit?",
@@ -173,7 +196,7 @@ export const FAQS: AccordionItem[] = [
   },
   {
     q: "Do you take my insurance?",
-    a: "We accept most dental insurance. Bring your card and we'll check your coverage for you.",
+    a: "We accept most PPO dental plans. Email us a picture of your insurance card at info@hamptonfamilydentist.com and we will get your insurance verified!",
   },
   {
     q: "Do you see kids?",
@@ -199,7 +222,7 @@ export const FAQS: AccordionItem[] = [
 export const HOURS = [
   { day: "Monday", time: "9 AM – 5 PM", confirm: false },
   { day: "Tuesday", time: "9 AM – 6 PM", confirm: false },
-  { day: "Wednesday", time: "8 AM – 12 PM", confirm: true },
+  { day: "Wednesday", time: "8 AM – 2 PM", confirm: false },
   { day: "Thursday", time: "8 AM – 5 PM", confirm: false },
-  { day: "Fri – Sun", time: "Closed", confirm: true },
+  { day: "Fri – Sun", time: "Closed", confirm: false },
 ];

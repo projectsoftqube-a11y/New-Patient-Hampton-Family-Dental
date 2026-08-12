@@ -171,10 +171,10 @@ export default function Audience() {
           })}
         </div>
 
-        {/* Deliberately NOT a button. The offer band immediately below opens
-            with the $99 price and a teal "Book my first visit" CTA; a second
-            teal button here would be the same ask, weaker, and eight pixels
-            earlier. This closes the recognition thought and hands off to it. */}
+        {/* Deliberately a text link, not a button. This closes the recognition
+            thought for anyone who did not see themselves in the list above -
+            a quiet way back into booking, not a second loud CTA competing with
+            the hero form. */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}

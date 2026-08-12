@@ -5,12 +5,13 @@ import { CalendarDays, CheckCircle2, Phone } from "lucide-react";
 import ImageSlot from "./ImageSlot";
 import LeadForm from "./LeadForm";
 import { useBooking } from "./BookingProvider";
-import { OFFER, PHONE_DISPLAY, PHONE_TEL } from "@/lib/lp.config";
+import { PHONE_DISPLAY, PHONE_TEL } from "@/lib/lp.config";
 
+// The "$99 exam, X-rays & cleaning" chip was pulled with the rest of the
+// promo (Aug 2026); a replacement offer is still being decided.
 const CHIPS = [
   "Now accepting new patients - all ages",
-  `New-patient exam, X-rays & cleaning from ${OFFER.price}*`,
-  "Most insurance accepted",
+  "Most PPO insurances accepted - No Insurance, No problem! Ask about our office plans",
   "Gentle, honest care - we take our time",
 ];
 

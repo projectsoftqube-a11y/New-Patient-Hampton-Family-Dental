@@ -4,7 +4,6 @@ import { absoluteUrl } from "@/lib/site";
 import LpHeader from "@/components/LpHeader";
 import Hero from "@/components/Hero";
 import Audience from "@/components/Audience";
-import OfferBand from "@/components/OfferBand";
 import InsuranceAndFinancing from "@/components/InsuranceAndFinancing";
 import ProcessSteps from "@/components/ProcessSteps";
 import MeetTheDentists from "@/components/MeetTheDentists";
@@ -19,13 +18,13 @@ import StickyCallBar from "@/components/StickyCallBar";
 
 import { FAQS } from "@/lib/content";
 import { getCarriers } from "@/lib/insurance";
-import { OFFER, PHONE_DISPLAY, PRACTICE } from "@/lib/lp.config";
+import { PHONE_DISPLAY, PRACTICE } from "@/lib/lp.config";
 
 export const metadata: Metadata = {
   title:
     "Family Dentist Southampton PA | New Patients Welcome - Hampton Family Dental",
   description:
-    `Now accepting new patients in Southampton, PA. Gentle, unhurried family dentistry - new-patient exam, X-rays & cleaning from ${OFFER.price}. Most insurance accepted. Call ${PHONE_DISPLAY}.`,
+    `Now accepting new patients in Southampton, PA. Gentle, unhurried family dentistry - exam, X-rays & cleaning in one relaxed first visit. Most PPO insurances accepted. Call ${PHONE_DISPLAY}.`,
   alternates: { canonical: absoluteUrl("/") },
   // A paid-traffic landing page should not compete in organic search with the
   // main site's own new-patient page. It stays crawlable so quality signals and
@@ -37,7 +36,7 @@ export const metadata: Metadata = {
     url: absoluteUrl("/"),
     title: "New Patients Welcome - Family Dentist in Southampton, PA",
     description:
-      `A gentle first visit with no pressure and no judgment. New-patient exam, X-rays & cleaning from ${OFFER.price}.`,
+      "A gentle first visit with no pressure and no judgment. New-patient exam, X-rays & cleaning in one relaxed visit.",
     images: [
       {
         url: absoluteUrl("/images/lp/og-newpatients.jpg"),
@@ -51,7 +50,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "New Patients Welcome - Family Dentist in Southampton, PA",
     description:
-      `A gentle first visit with no pressure and no judgment. New-patient exam, X-rays & cleaning from ${OFFER.price}.`,
+      "A gentle first visit with no pressure and no judgment. New-patient exam, X-rays & cleaning in one relaxed visit.",
     images: [absoluteUrl("/images/lp/og-newpatients.jpg")],
   },
 };
@@ -62,8 +61,9 @@ export const metadata: Metadata = {
  * Deliberately omitted until the office confirms them:
  *  · aggregateRating - an unverifiable rating in schema risks a manual action,
  *    and the reviews on this page are still placeholders.
- *  · openingHoursSpecification for Wed/Fri–Sun - those are [CONFIRM] in the
- *    copy, and wrong hours in structured data send patients to a locked door.
+ *
+ * Full opening hours are now emitted: the office confirmed Wednesday 8-2 and
+ * Fri-Sun closed (Aug 2026), so every day of the week is accounted for.
  */
 const dentistSchema = {
   "@context": "https://schema.org",
@@ -111,9 +111,23 @@ const dentistSchema = {
     },
     {
       "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Wednesday",
+      opens: "08:00",
+      closes: "14:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
       dayOfWeek: "Thursday",
       opens: "08:00",
       closes: "17:00",
+    },
+    // Confirmed closed by the office - stated explicitly rather than omitted so
+    // Google shows "Closed" instead of leaving the day unknown.
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Friday", "Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "00:00",
     },
   ],
 };
@@ -160,7 +174,9 @@ export default function NewPatientsLandingPage() {
           <LpHeader />
           <Hero />
           <Audience />
-          <OfferBand />
+          {/* The $99 new-patient OfferBand sat here. Pulled at the office's
+              request (Aug 2026) - a replacement offer is still being decided,
+              so the component is left in the repo ready to drop back in. */}
           {/* Reads public/images/lp/insurance/ - any logo file present is used,
               any carrier without one renders as type. */}
           <InsuranceAndFinancing carriers={getCarriers()} />

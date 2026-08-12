@@ -13,6 +13,13 @@ export const PHONE_TEL = "tel:+12153572224";
 export const PHONE_SMS = "sms:+12153572224";
 
 /**
+ * Front-desk inbox. Patients are asked to email a photo of their insurance
+ * card here rather than bring the card in, so this address is a real
+ * conversion path - it appears in the insurance section and the FAQ.
+ */
+export const PRACTICE_EMAIL = "info@hamptonfamilydentist.com";
+
+/**
  * Online booking destination.
  * [CONFIRM] Replace with the practice's real booking URL before launch. Until
  * then every "Book online" CTA falls back to the phone number, which is a
@@ -20,7 +27,15 @@ export const PHONE_SMS = "sms:+12153572224";
  */
 export const BOOKING_URL = "";
 
-/** New-patient offer. [CONFIRM] price and inclusions with the office. */
+/**
+ * New-patient offer.
+ *
+ * NOT CURRENTLY RENDERED. The $99 special was pulled at the office's request
+ * (Aug 2026) and OfferBand is unmounted from src/app/page.tsx while a
+ * replacement offer is decided. Kept, with OfferBand, so the band can be
+ * restored by editing the values here and re-adding the one line to the page.
+ * [CONFIRM] price and inclusions with the office before it goes back.
+ */
 export const OFFER = {
   price: "$99",
   includes: "Exam + X-rays + cleaning",
@@ -42,7 +57,7 @@ export const PRACTICE = {
 } as const;
 
 /**
- * Insurance carriers shown in the "Most insurance welcome" strip.
+ * Insurance carriers shown in the "PPO Insurances Accepted" strip.
  *
  * `slug` is also the filename the logo auto-detector looks for in
  * public/images/lp/insurance/ - e.g. `delta-dental.webp`. See
@@ -60,7 +75,9 @@ export type Carrier = {
 };
 
 export const CARRIERS: Carrier[] = [
-  { name: "Delta Dental", slug: "delta-dental" },
+  // Delta Dental removed at the office's request (Aug 2026) - the practice is
+  // not in-network for it. Do not re-add without confirming with the office;
+  // the logo file is still on disk, so listing the slug is all it would take.
   { name: "Cigna", slug: "cigna" },
   { name: "Aetna", slug: "aetna" },
   { name: "MetLife", slug: "metlife" },
