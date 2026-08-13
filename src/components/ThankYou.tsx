@@ -62,7 +62,7 @@ export default function ThankYou() {
           className="shrink-0 rounded-md transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
         >
           <Image
-            src="/logo.svg"
+            src="/logo.avif"
             alt={`${PRACTICE.name} - ${PRACTICE.city}, ${PRACTICE.state}`}
             width={1282}
             height={321}
