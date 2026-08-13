@@ -81,9 +81,11 @@ export default function LpFooter({ year }: { year: number }) {
         <p className="mt-7 text-[12.5px] leading-relaxed text-steel-light/70">
           {PRACTICE.street}, {PRACTICE.city}, {PRACTICE.state} {PRACTICE.zip}
         </p>
+        {/* The "*Example price" half of this line footnoted the $99 promo,
+            which was pulled in Aug 2026 - there is no price left on the page
+            for it to qualify. */}
         <p className="mt-2 text-[11.5px] leading-relaxed text-white/60">
-          Formerly Brenner Dental Group · *Example price - confirm final offer
-          with office.
+          Formerly Brenner Dental Group
         </p>
 
         <p className="mt-5 text-[11px] text-white/55">

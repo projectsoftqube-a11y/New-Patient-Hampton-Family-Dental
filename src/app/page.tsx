@@ -181,6 +181,9 @@ export default function NewPatientsLandingPage() {
           {/* Mobile only - social proof directly after the first-visit steps.
               The lg: copy below keeps its original spot after WhyUs. */}
           <Reviews variant="mobile" />
+          {/* Mobile only - the dentists are introduced before the cost
+              section. The lg: copy below keeps the original order. */}
+          <MeetTheDentists variant="mobile" />
           <Audience />
           {/* The $99 new-patient OfferBand sat here. Pulled at the office's
               request (Aug 2026) - a replacement offer is still being decided,

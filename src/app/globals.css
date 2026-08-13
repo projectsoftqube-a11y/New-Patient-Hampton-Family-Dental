@@ -59,9 +59,10 @@
   --color-beige-dark: #C4CDDA;     /* deeper cool neutral / borders */
   --color-white: #ffffff;
 
-  /* Fraunces for headings, Inter for everything else - see src/app/layout.tsx
-     for why this page departs from the main site's Playfair/Poppins pairing. */
-  --font-heading: var(--font-heading-family), Georgia, "Times New Roman", serif;
+  /* Exo 2 for headings, Inter for everything else - see src/app/layout.tsx.
+     The fallback stack is sans, matching Exo 2: with a serif fallback the
+     headings flashed as Georgia before the webfont finished loading. */
+  --font-heading: var(--font-heading-family), "Segoe UI", system-ui, sans-serif;
   --font-body: var(--font-body-family), system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -149,6 +150,38 @@
 @keyframes lp-marquee {
   from { transform: translate3d(0, 0, 0); }
   to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* ─── "Now accepting new patients" badge ───
+   Two continuous loops, both on compositor-only properties (transform and
+   opacity) so they cost nothing per frame and never trigger layout.
+
+   lp-sheen sweeps a soft highlight across the pill. It starts and ends well
+   outside the pill's own width so there is a long dark gap between passes -
+   a sheen that runs edge-to-edge on a loop reads as a loading skeleton
+   rather than a highlight.
+
+   lp-halo is a ring that expands out of the pill's own edge and fades - a
+   single clean stroke rather than a blurred glow. A blur-based halo bled a
+   green haze into the near-white hero wash behind it, which read as a
+   rendering artefact rather than an effect.
+
+   The two cycles are deliberately different lengths: two loops on the same
+   clock read as one mechanical pulse, where drifting cycles read as
+   something alive.
+
+   Both are applied with motion-safe: in the markup, so a visitor who has
+   asked for reduced motion gets the badge completely still. */
+@keyframes lp-sheen {
+  0%       { transform: translate3d(-140%, 0, 0); }
+  55%      { transform: translate3d(240%, 0, 0); }
+  100%     { transform: translate3d(240%, 0, 0); }
+}
+
+@keyframes lp-halo {
+  0%       { transform: scale(1); opacity: 0.5; }
+  70%      { transform: scale(1.12); opacity: 0; }
+  100%     { transform: scale(1.12); opacity: 0; }
 }
 
 /* ─── Thin, on-theme scrollbars ─── */

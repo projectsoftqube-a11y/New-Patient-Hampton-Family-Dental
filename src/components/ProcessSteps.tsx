@@ -18,15 +18,15 @@ import { STEPS } from "@/lib/content";
  * the height of the photo column beside them and left a large void under the
  * list. Two changes fix that without padding the copy:
  *
- *  1. Each step is a card with its own surface and a stated duration, so the
- *     column has real height and the "about an hour" promise above it becomes
- *     checkable rather than decorative.
+ *  1. Each step states its duration, so the column has real height and the
+ *     "about an hour" promise above it becomes checkable rather than
+ *     decorative.
  *  2. The photo column is one portrait plus a stacked pair rather than a
  *     single tall image, so the two columns land at comparable heights.
  *
- * The cards carry the sequence themselves - number inside the header row, a
- * teal edge down the left - rather than threading an external rail through
- * them. Both together was one structure too many.
+ * The steps render as a connected timeline - numbered nodes threaded on a
+ * continuous rail - rather than four boxed cards, which read as unrelated
+ * tiles when they are in fact one sequence.
  */
 /**
  * The section is placed twice in the page, and each copy renders on exactly one
@@ -78,46 +78,57 @@ export default function ProcessSteps({
               ordered list whose items are not <li> is worse for a screen reader
               than a plain group, so this is a list of role="listitem" cards
               under an explicit role="list" instead. */}
-          <div role="list" className="mt-8 space-y-2.5">
+          {/*
+            A connected timeline rather than four separate cards.
+
+            These steps are one sequence, and boxing each of them made the
+            section read as a list of unrelated tiles - four surfaces, four
+            borders, four hover states, for what is really a single line from
+            "you walk in" to "you leave". The rail draws that line: numbered
+            nodes threaded on a continuous stroke, with only a hairline
+            separating one row from the next.
+          */}
+          <div role="list" className="relative mt-8">
+            {/* The rail. Inset to the node's centre (17.5px = half of the 36px
+                node) and stopped short at both ends so it emerges from the
+                first node and dies into the last rather than overshooting. */}
+            <span
+              aria-hidden
+              className="absolute bottom-6 left-[17.5px] top-6 w-px bg-gradient-to-b from-urgent/40 via-urgent/25 to-transparent"
+            />
+
             {STEPS.map((step, i) => (
               <Reveal key={step.title} delay={i * 0.07}>
                 <div
                   role="listitem"
-                  className="group relative min-w-0 overflow-hidden rounded-2xl border border-beige-dark/50 bg-beige-light/50 p-4 transition-all duration-300 hover:border-primary/25 hover:bg-white hover:shadow-[0_18px_38px_-26px_rgba(20,60,80,0.5)] sm:p-5"
+                  className="group relative flex min-w-0 gap-4 py-4 first:pt-1 last:pb-1"
                 >
-                  {/* Accent edge - carries the sequence colour without needing
-                      a rail, and gives each card a definite left anchor. */}
-                  <span
-                    aria-hidden
-                    className="absolute inset-y-0 left-0 w-[3px] bg-urgent/25 transition-colors duration-300 group-hover:bg-urgent"
-                  />
+                  {/* Node. bg-white (not transparent) so the rail passes
+                      behind the ring rather than through the numeral. */}
+                  <span className="relative z-10 mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[15px] font-bold tabular-nums text-urgent-dark ring-2 ring-urgent/30 transition-all duration-300 group-hover:bg-urgent group-hover:text-white group-hover:ring-urgent">
+                    {i + 1}
+                  </span>
 
-                  {/* Header row: number, title, duration - all on one baseline,
-                      so the four cards line up vertically down the column. */}
-                  <div className="flex min-w-0 items-center gap-3">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-urgent/10 text-[12.5px] font-bold tabular-nums text-urgent-dark transition-colors duration-300 group-hover:bg-urgent group-hover:text-white">
-                      {i + 1}
-                    </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <h3 className="min-w-0 font-heading text-[18px] leading-snug text-navy sm:text-[20px]">
+                        {step.title}
+                      </h3>
 
-                    <h3 className="min-w-0 flex-1 font-heading text-[16px] leading-snug text-navy sm:text-[17.5px]">
-                      {step.title}
-                    </h3>
+                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-beige-light px-2.5 py-1 text-[12px] font-semibold tabular-nums text-navy/55 transition-colors duration-300 group-hover:bg-urgent/10 group-hover:text-urgent-dark">
+                        <Clock className="h-3 w-3 shrink-0" strokeWidth={2.6} aria-hidden />
+                        {step.duration}
+                      </span>
+                    </div>
 
-                    <span className="inline-flex shrink-0 items-center gap-1.5 text-[11px] font-semibold tabular-nums text-navy/45 transition-colors duration-300 group-hover:text-primary">
-                      <Clock className="h-3 w-3 shrink-0" strokeWidth={2.4} aria-hidden />
-                      {step.duration}
-                    </span>
+                    {/* Dropped in the mobile copy, where this section runs
+                        directly under the hero and has to stay scannable. */}
+                    {!mobile && (
+                      <p className="mt-1.5 text-[14.5px] leading-relaxed text-navy/60">
+                        {step.body}
+                      </p>
+                    )}
                   </div>
-
-                  {/* Indented to the title's left edge (28px badge + 12px gap)
-                      so the body hangs off the title, not the number. Dropped
-                      in the mobile copy, where this section runs directly under
-                      the hero and has to stay scannable. */}
-                  {!mobile && (
-                    <p className="mt-2 pl-10 text-[13.5px] leading-relaxed text-navy/60">
-                      {step.body}
-                    </p>
-                  )}
                 </div>
               </Reveal>
             ))}

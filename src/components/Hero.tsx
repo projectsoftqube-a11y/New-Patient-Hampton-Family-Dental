@@ -92,14 +92,40 @@ export default function Hero() {
               transition={{ duration: 0.4 }}
               className="flex flex-col items-start gap-2"
             >
-              <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-urgent/10 px-3 py-1.5 ring-1 ring-urgent/20">
-                {/* Live dot — a quiet "we're open to you right now" signal. */}
-                <span className="relative flex h-2 w-2 shrink-0" aria-hidden>
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-urgent opacity-60 motion-safe:animate-ping" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-urgent" />
-                </span>
-                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-urgent-dark sm:text-[11px] sm:tracking-[0.16em]">
-                  Now accepting new patients
+              {/*
+                The status badge. Three layers, all continuous, all on
+                compositor-only properties - see the lp-sheen / lp-breathe
+                notes in globals.css:
+
+                  1. a halo that breathes behind the pill,
+                  2. a sheen that sweeps across its face,
+                  3. the live dot, which keeps its own faster pulse.
+
+                isolate + overflow-hidden on the pill clip the sheen to the
+                rounded shape; the text sits above both on z-10.
+              */}
+              <span className="relative inline-flex max-w-full">
+                {/* Expanding ring, drawn from the chip's own edge. */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-urgent/45 motion-safe:animate-[lp-halo_4.5s_ease-out_infinite]"
+                />
+
+                <span className="relative isolate inline-flex max-w-full items-center gap-2 overflow-hidden rounded-full bg-urgent px-3.5 py-1.5 shadow-[0_6px_18px_-8px_rgba(15,138,109,0.9)]">
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-y-0 -left-1/3 z-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent motion-safe:animate-[lp-sheen_5.5s_ease-in-out_infinite]"
+                  />
+
+                  {/* Live dot - a quiet "we're open to you right now" signal. */}
+                  <span className="relative z-10 flex h-2 w-2 shrink-0" aria-hidden>
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-70 motion-safe:animate-ping" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+                  </span>
+
+                  <span className="relative z-10 text-[10px] font-bold uppercase tracking-[0.14em] text-white sm:text-[11px] sm:tracking-[0.16em]">
+                    Now accepting new patients
+                  </span>
                 </span>
               </span>
 

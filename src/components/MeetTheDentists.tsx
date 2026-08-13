@@ -14,9 +14,26 @@ import { cn } from "@/lib/utils";
  * further down. A round avatar beside the text says the same thing in a third
  * of the height.
  */
-export default function MeetTheDentists() {
+/**
+ * Placed twice in the page, each copy rendering at exactly one breakpoint -
+ * see src/app/page.tsx. On mobile the client wants the dentists introduced
+ * before the cost section; desktop keeps the original order. Only one is ever
+ * in the layout, so `id="team"` is never duplicated.
+ */
+export default function MeetTheDentists({
+  variant = "desktop",
+}: {
+  variant?: "mobile" | "desktop";
+}) {
   return (
-    <Section id="team" className="bg-beige-light">
+    <Section
+      id="team"
+      className={
+        variant === "mobile"
+          ? "bg-beige-light lg:hidden"
+          : "hidden bg-beige-light lg:block"
+      }
+    >
       <SectionHeading
         eyebrow="Your dentists"
         title="Meet your dentists"
