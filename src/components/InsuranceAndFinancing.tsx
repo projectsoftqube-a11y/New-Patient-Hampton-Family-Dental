@@ -31,6 +31,47 @@ const FINANCING = [
 ];
 
 /**
+ * One carrier cell. Shared by the mobile marquee and the desktop grid so the
+ * logo treatment cannot drift between the two.
+ *
+ * `marquee` fixes the width - a flex track gives its children no column to
+ * size against, so without it every cell collapses to its logo's width and the
+ * row reads as ragged stickers rather than a credential set.
+ */
+function CarrierCell({
+  carrier,
+  marquee = false,
+}: {
+  carrier: Carrier;
+  marquee?: boolean;
+}) {
+  return (
+    <div
+      className={`group flex h-[72px] min-w-0 items-center justify-center rounded-2xl border border-beige-dark/50 bg-white px-3 shadow-[0_1px_2px_rgba(20,60,80,0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[0_12px_28px_-16px_rgba(20,60,80,0.45)] sm:h-[80px] sm:px-4 ${
+        marquee ? "w-[150px] shrink-0 sm:w-[170px]" : ""
+      }`}
+    >
+      {carrier.logo ? (
+        <Image
+          src={carrier.logo}
+          alt={`${carrier.name} accepted at Hampton Family Dental`}
+          width={240}
+          height={80}
+          className="max-h-8 w-auto max-w-full object-contain sm:max-h-9"
+        />
+      ) : (
+        <span className="flex min-w-0 items-center gap-1.5">
+          <Check className="h-3.5 w-3.5 shrink-0 text-urgent" strokeWidth={3} aria-hidden />
+          <span className="min-w-0 text-center text-[12.5px] font-semibold leading-tight text-navy sm:text-[13.5px]">
+            {carrier.name}
+          </span>
+        </span>
+      )}
+    </div>
+  );
+}
+
+/**
  * `carriers` comes from getCarriers() in the server component, which checks
  * public/images/lp/insurance/ for a file matching each carrier's slug. Any
  * carrier with a logo renders the image; the rest render their name as type.
@@ -69,46 +110,68 @@ export default function InsuranceAndFinancing({
         was a different width and the row broke into a ragged, unbalanced
         shape - the logos read as loose stickers rather than a credential set.
 
-        A fixed grid of equal cells fixes that: each logo gets identical space
-        and sits optically centred, so the block reads as one tidy panel no
-        matter how many carriers the office adds or which ones have artwork.
+        Equal-width cells fix that: each logo gets identical space and sits
+        optically centred, so the block reads as one tidy panel no matter how
+        many carriers the office adds or which ones have artwork. Below md the
+        cells scroll as a marquee, from md up they sit in a static grid - both
+        render the same CarrierCell.
       */}
-      <Reveal delay={0.05}>
-        {/* Auto-fit rather than a fixed column count. The list used to be six
-            carriers, which divided evenly into three columns; dropping Delta
-            Dental leaves five, and a fixed 3-col grid stranded a hole in the
-            bottom-right. Auto-fit sizes the tracks and justify-center pulls a
-            short final row into the middle, so the block stays a tidy panel at
-            any carrier count the office lands on. */}
-        <ul className="mt-7 grid grid-cols-2 justify-center gap-2.5 sm:gap-3 md:grid-cols-[repeat(auto-fit,minmax(180px,1fr))]">
+      {/*
+        ── Mobile: a logo marquee ──
+
+        Five carriers in a 2-col grid took four rows of vertical space on a
+        phone and still stranded an empty cell. One scrolling row says the same
+        thing in a fifth of the height, and reads as the credential strip it is.
+        Swipeable by thumb (touch-pan-x) as well as auto-scrolling.
+      */}
+      <Reveal delay={0.05} className="md:hidden">
+        <div className="group relative mt-7 flex touch-pan-x overflow-x-auto py-1 scrollbar-none [&::-webkit-scrollbar]:hidden">
+          <div
+            className="flex shrink-0 items-stretch gap-2.5 pr-2.5 motion-safe:animate-[lp-marquee_linear_infinite]"
+            style={{ animationDuration: "16s" }}
+          >
+            {carriers.map((carrier) => (
+              <CarrierCell key={carrier.slug} carrier={carrier} marquee />
+            ))}
+            {/* Seamless-loop duplicate - see the reviews marquee for why both
+                halves must be identical siblings of one track. */}
+            {carriers.map((carrier) => (
+              <div key={`dup-${carrier.slug}`} aria-hidden>
+                <CarrierCell carrier={carrier} marquee />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* The "not listed?" ask, now its own row under the strip rather than a
+            cell inside a grid that no longer exists. */}
+        <a
+          href={PHONE_TEL}
+          data-cta="insurance-not-listed-grid"
+          className="mt-2.5 flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-2xl border border-dashed border-primary/40 bg-primary/[0.04] px-3 py-3 text-center transition-colors active:bg-white"
+        >
+          <span className="flex min-w-0 items-center gap-1.5">
+            <Phone className="h-3 w-3 shrink-0 text-primary" strokeWidth={2.6} aria-hidden />
+            <span className="min-w-0 text-[12.5px] font-bold leading-tight text-navy">
+              Don&apos;t see your plan?
+            </span>
+          </span>
+          <span className="min-w-0 text-[11px] font-medium leading-tight text-primary">
+            + many more PPO insurances - tap to call
+          </span>
+        </a>
+      </Reveal>
+
+      {/* ── Desktop: the static grid ──
+          Auto-fit rather than a fixed column count, so the row closes cleanly
+          at whatever carrier count the office lands on. */}
+      <Reveal delay={0.05} className="hidden md:block">
+        <ul className="mt-7 grid justify-center gap-3 md:grid-cols-[repeat(auto-fit,minmax(180px,1fr))]">
           {carriers.map((carrier) => (
-            <li
-              key={carrier.slug}
-              className="group flex h-[72px] min-w-0 items-center justify-center rounded-2xl border border-beige-dark/50 bg-white px-3 shadow-[0_1px_2px_rgba(20,60,80,0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[0_12px_28px_-16px_rgba(20,60,80,0.45)] sm:h-[80px] sm:px-4"
-            >
-              {carrier.logo ? (
-                <Image
-                  src={carrier.logo}
-                  alt={`${carrier.name} accepted at Hampton Family Dental`}
-                  width={240}
-                  height={80}
-                  className="max-h-8 w-auto max-w-full object-contain sm:max-h-9"
-                />
-              ) : (
-                <span className="flex min-w-0 items-center gap-1.5">
-                  <Check
-                    className="h-3.5 w-3.5 shrink-0 text-urgent"
-                    strokeWidth={3}
-                    aria-hidden
-                  />
-                  <span className="min-w-0 text-center text-[12.5px] font-semibold leading-tight text-navy sm:text-[13.5px]">
-                    {carrier.name}
-                  </span>
-                </span>
-              )}
+            <li key={carrier.slug} className="min-w-0">
+              <CarrierCell carrier={carrier} />
             </li>
           ))}
-
         </ul>
       </Reveal>
 
@@ -126,7 +189,7 @@ export default function InsuranceAndFinancing({
         most likely to bounce, so this is a real tel: link rather than the
         inert "+ more - just ask" text it replaces.
       */}
-      <Reveal delay={0.12}>
+      <Reveal delay={0.12} className="hidden md:block">
         <a
           href={PHONE_TEL}
           data-cta="insurance-not-listed"

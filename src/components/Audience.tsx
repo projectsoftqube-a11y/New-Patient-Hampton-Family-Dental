@@ -53,7 +53,11 @@ export default function Audience() {
   const FeatureIcon = ICONS[feature.icon];
 
   return (
-    <Section id="who" className="bg-beige-light">
+    // Desktop only, at the client's request (Aug 2026). On a phone the page
+    // now leads with "what your first visit looks like" straight after the
+    // hero, and this recognition grid pushed the conversion sections too far
+    // down to justify its height.
+    <Section id="who" className="hidden bg-beige-light lg:block">
       {/* Hairline grid, masked to a soft ellipse - structure under the cards
           without competing with them. */}
       <div
@@ -69,14 +73,7 @@ export default function Audience() {
       <div className="relative">
         <SectionHeading
           eyebrow="Sound like you?"
-          title={
-            <>
-              Wherever you&apos;re coming from,{" "}
-              <span className="font-normal italic text-primary">
-                you&apos;re welcome here.
-              </span>
-            </>
-          }
+          title="Wherever you're coming from, you're welcome here."
           lead="Most new patients arrive for one of these five reasons. Find yours - the first visit is the same gentle, unhurried hour either way."
         />
 

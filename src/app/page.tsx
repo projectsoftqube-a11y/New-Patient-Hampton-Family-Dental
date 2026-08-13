@@ -170,9 +170,17 @@ export default function NewPatientsLandingPage() {
           offer band, audience, footer and the sticky mobile bar - open one
           shared dialog rather than each mounting its own. */}
       <BookingProvider>
-        <main className="w-full overflow-x-hidden bg-white pb-[76px] md:pb-0">
+        <main className="w-full overflow-x-hidden bg-white pb-[52px] md:pb-0">
           <LpHeader />
           <Hero />
+          {/* Mobile only. On a phone the client wants "what actually happens"
+              answered before anything else, so this copy sits directly under
+              the hero; the lg: copy below keeps the original placement and its
+              full detail. Exactly one of the two renders at any width. */}
+          <ProcessSteps variant="mobile" />
+          {/* Mobile only - social proof directly after the first-visit steps.
+              The lg: copy below keeps its original spot after WhyUs. */}
+          <Reviews variant="mobile" />
           <Audience />
           {/* The $99 new-patient OfferBand sat here. Pulled at the office's
               request (Aug 2026) - a replacement offer is still being decided,

@@ -166,22 +166,95 @@ export const DENTISTS: Dentist[] = [
 ];
 
 /**
- * Reviews.
+ * Reviews - the real Google Business Profile set, supplied by the office
+ * (Aug 2026). Names, review counts and dates are as they appear on Google.
  *
- * [DEV] These are the draft's placeholder quotes - they are NOT real Google
- * reviews and carry no reviewer names. Replace all five with genuine reviews
- * from the Google Business Profile before this page takes traffic. Quotes
- * attributed to invented patients are an FTC endorsement problem.
+ * `when` is relative ("6 months ago") exactly as Google renders it, which means
+ * it silently ages. Refresh this list when the review section is next revisited
+ * rather than letting "3 months ago" quietly become two years old.
  *
- * The Emergency LP already has the real review set pulled from Google; use
- * that same source here.
+ * Longer reviews are quoted in full; Google's own "… More" truncation is left
+ * to the card, not baked into the text.
  */
-export const REVIEWS = [
-  "First dentist I've had who doesn't try to sell me things I don't need. Honest, gentle, and they explained everything. So relieved I found them.",
-  "We take all three kids here now. They're so patient and kind with them - no tears, no drama. One appointment for the whole family is a game changer.",
-  "Hadn't been to a dentist in years and was dreading it. Zero judgment. They made it completely comfortable. Actually looking forward to going back.",
-  "New to the area and so glad this was the first office I tried. On time, friendly, and my cleaning was the most thorough I've had in ages.",
-  "They took the time to actually listen. Never felt rushed or judged. This is what a family dentist should feel like.",
+export type Review = {
+  name: string;
+  /** e.g. "3 reviews" or "Local Guide · 15 reviews" - shown under the name. */
+  meta: string;
+  when: string;
+  quote: string;
+};
+
+export const REVIEWS: Review[] = [
+  {
+    name: "Susan Donohue",
+    meta: "3 reviews",
+    when: "3 months ago",
+    quote:
+      "Dr. Brenner is an amazing dentist. He really explains everything you need to know. The staff is awesome and very friendly.",
+  },
+  {
+    name: "Donnalee Charlton",
+    meta: "5 reviews",
+    when: "8 months ago",
+    quote:
+      "I had a crown come off. I called for an appointment. Angela returned my call within minutes. I was in the chair within one hour. Casey was setting up and assisting as Dr. Brenner was working on my tooth. The staff is always so friendly.",
+  },
+  {
+    name: "Colleen McKeown",
+    meta: "3 reviews",
+    when: "6 months ago",
+    quote:
+      "Dr. Brenner and his office staff are extremely kind and helpful. I have been going for years and they are very honest, accommodating and helpful. Grateful 💜☀️",
+  },
+  {
+    name: "Gary Balasa",
+    meta: "2 reviews",
+    when: "a year ago",
+    quote:
+      "Dr. Brenner and his staff provide a pleasant atmosphere with excellent quality dental care. I have been going to this office for 6 years for surgery and maintenance and have been very happy with my experiences.",
+  },
+  {
+    name: "Lauren Fioresi",
+    meta: "10 reviews",
+    when: "2 years ago",
+    quote:
+      "Tiffany was great and very knowledgeable. She made me feel very comfortable and I got through my cleaning without any pain or discomfort! Dr. Brenner is great and also very knowledgeable and cares about his patients.",
+  },
+  {
+    name: "Cynthia Perez",
+    meta: "8 reviews",
+    when: "a year ago",
+    quote:
+      "My family has been going to Dr Brenner's office for a few years. Highly recommend! It's like family there, the staff is great. Dr. is always looking out for the best on your dental health. He's proactive and a great Dr and person. Love this place ❤️",
+  },
+  {
+    name: "Arlene Santonastasi",
+    meta: "17 reviews",
+    when: "6 months ago",
+    quote:
+      "Dr. Brenner stepped into the waiting area and introduced himself to me. Everyone was cheerful and made me feel very comfortable!",
+  },
+  {
+    name: "Samantha Freeman",
+    meta: "5 reviews · 1 photo",
+    when: "a year ago",
+    quote:
+      "Dr. Brenner and his team were simply fantastic. Finding a dentist, hygienist, and even friendly front desk all in one is hard to come by and they certainly have it all. My hygienist could sense I was nervous but walked me through each step of the way and took her time and was as gentle as she could be. I look forward to bringing my family here.",
+  },
+  {
+    name: "Scott St. Pierre",
+    meta: "Local Guide · 15 reviews · 5 photos",
+    when: "2 years ago",
+    quote:
+      "Dr Brenner purchased the practice from a dentist I went to since I was a kid. It was an easy and smooth transition and my family has been with him since. He and the entire staff are friendly, professional and do an excellent job on our teeth. Could not be happier with their service.",
+  },
+  {
+    name: "Ellyn Caplan Klein",
+    meta: "Local Guide · 13 reviews",
+    when: "a year ago",
+    quote:
+      "Dr. Brenner is superb, compassionate and I can see why he has been chosen as the best dentist. He is restoring my mouth and I am in great hands. His staff, Michelle and Casey, have been trained by Dr. Brenner and they are also excellent. Angela, the office manager, is absolutely excellent as are their dental hygienists. Make sure you go to this practice.",
+  },
 ];
 
 /** "Good to know" - also emitted as FAQPage structured data. */

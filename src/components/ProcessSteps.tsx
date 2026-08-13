@@ -28,16 +28,42 @@ import { STEPS } from "@/lib/content";
  * teal edge down the left - rather than threading an external rail through
  * them. Both together was one structure too many.
  */
-export default function ProcessSteps() {
+/**
+ * The section is placed twice in the page, and each copy renders on exactly one
+ * breakpoint - see src/app/page.tsx.
+ *
+ *  · "mobile"  - directly under the hero, where the client wants the reassurance
+ *                to land before anything else on a phone. Step bodies are
+ *                dropped so it stays a scannable four-line summary rather than
+ *                a wall of text at the top of the page; the photos stay.
+ *  · "desktop" - its original position and full treatment, untouched.
+ *
+ * Only one is ever in the layout at a given width, so `id="first-visit"` and
+ * the images are never duplicated in the rendered output.
+ */
+export default function ProcessSteps({
+  variant = "desktop",
+}: {
+  variant?: "mobile" | "desktop";
+}) {
+  const mobile = variant === "mobile";
+
   return (
-    <Section id="first-visit" className="bg-white">
+    <Section
+      id="first-visit"
+      className={mobile ? "bg-white lg:hidden" : "hidden bg-white lg:block"}
+    >
       <div className="grid gap-9 lg:grid-cols-[1.02fr_0.98fr] lg:items-start lg:gap-14">
         {/* ── Left: the sequence ── */}
         <div className="min-w-0">
           <SectionHeading
             eyebrow="No surprises"
             title="What your first visit looks like"
-            lead="About an hour, start to finish. Here's exactly how it goes - and how long each part takes."
+            lead={
+              mobile
+                ? "About an hour, start to finish."
+                : "About an hour, start to finish. Here's exactly how it goes - and how long each part takes."
+            }
           />
 
           {/* One card per step, nothing outside them.
@@ -84,10 +110,14 @@ export default function ProcessSteps() {
                   </div>
 
                   {/* Indented to the title's left edge (28px badge + 12px gap)
-                      so the body hangs off the title, not the number. */}
-                  <p className="mt-2 pl-10 text-[13.5px] leading-relaxed text-navy/60">
-                    {step.body}
-                  </p>
+                      so the body hangs off the title, not the number. Dropped
+                      in the mobile copy, where this section runs directly under
+                      the hero and has to stay scannable. */}
+                  {!mobile && (
+                    <p className="mt-2 pl-10 text-[13.5px] leading-relaxed text-navy/60">
+                      {step.body}
+                    </p>
+                  )}
                 </div>
               </Reveal>
             ))}

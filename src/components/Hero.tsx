@@ -27,7 +27,9 @@ export default function Hero() {
   const { open: openBooking } = useBooking();
 
   return (
-    <section className="relative isolate w-full overflow-hidden bg-white">
+    // id is the anchor StickyCallBar observes to know when the hero has
+    // scrolled away - see src/components/StickyCallBar.tsx.
+    <section id="hero" className="relative isolate w-full overflow-hidden bg-white">
       {/* ── Background wash ── */}
       <div
         aria-hidden
@@ -119,19 +121,8 @@ export default function Hero() {
                 letterSpacing: "-0.035em",
               }}
             >
-              Let&apos;s find you a dentist you&apos;ll{" "}
-              {/* The full stop is part of the same text node as the phrase, not
-                  a sibling of it. As a separate inline item it wrapped to a line
-                  of its own - a lone dot under the headline - whenever the
-                  italic phrase filled the width, which at these clamped sizes is
-                  most of the time. The underline is a positioned overlay across
-                  the whole box, so right-[0.28em] pulls its end back in to stop
-                  at the text rather than running under the dot. */}
-              <span className="relative inline-block">
-                <span className="font-normal italic text-primary">
-                  actually look forward to.
-                </span>
-              </span>
+              Let&apos;s find you a dentist you&apos;ll actually look forward
+              to.
             </motion.h1>
 
             {/* Mobile-only image. On phones the copy is trimmed, and this
@@ -150,7 +141,9 @@ export default function Hero() {
                 alt="A patient being warmly welcomed at the Hampton Family Dental front desk in Southampton, PA"
                 tone="light"
                 corner
-                className="aspect-[4/3] w-full rounded-2xl ring-1 ring-navy/8"
+                // Was 4/3. Shortened by ~30% at the client's request so the
+                // form and CTAs sit higher on a phone.
+                className="aspect-video w-full rounded-2xl ring-1 ring-navy/8"
                 sizes="100vw"
                 objectPosition="center 40%"
               />
@@ -190,7 +183,7 @@ export default function Hero() {
                 type="button"
                 onClick={() => openBooking("hero-book")}
                 data-cta="hero-book"
-                className="group flex min-w-0 items-center justify-center gap-2.5 rounded-2xl bg-urgent px-4 py-3.5 text-white shadow-[0_14px_32px_-10px_rgba(15,138,109,0.65)] transition-all hover:bg-urgent-dark hover:shadow-[0_18px_40px_-10px_rgba(15,138,109,0.75)] active:scale-[0.99] sm:py-4"
+                className="group flex min-w-0 items-center justify-center gap-2.5 rounded-2xl bg-urgent px-4 py-2.5 text-white shadow-[0_14px_32px_-10px_rgba(15,138,109,0.65)] transition-all hover:bg-urgent-dark hover:shadow-[0_18px_40px_-10px_rgba(15,138,109,0.75)] active:scale-[0.99] sm:py-4"
               >
                 <CalendarDays className="h-4 w-4 shrink-0" strokeWidth={2.6} aria-hidden />
                 <span className="min-w-0 text-left">
@@ -206,7 +199,7 @@ export default function Hero() {
               <a
                 href={PHONE_TEL}
                 data-cta="hero-call"
-                className="group flex min-w-0 items-center justify-center gap-2.5 rounded-2xl border border-navy/12 bg-white px-4 py-3.5 text-navy shadow-[0_10px_28px_-14px_rgba(20,60,80,0.45)] transition-all hover:border-primary/35 hover:bg-beige-light active:scale-[0.99] sm:py-4"
+                className="group flex min-w-0 items-center justify-center gap-2.5 rounded-2xl border border-navy/12 bg-white px-4 py-2.5 text-navy shadow-[0_10px_28px_-14px_rgba(20,60,80,0.45)] transition-all hover:border-primary/35 hover:bg-beige-light active:scale-[0.99] sm:py-4"
               >
                 <Phone className="h-4 w-4 shrink-0 text-primary" strokeWidth={2.4} aria-hidden />
                 <span className="min-w-0 text-left">
