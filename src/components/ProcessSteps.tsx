@@ -155,13 +155,20 @@ export default function ProcessSteps({
             src="/images/lp/first-visit-consult.webp"
             dimensions="1200 × 1400"
             alt="A dentist talking calmly with a new patient at Hampton Family Dental in Southampton, PA"
-            className="aspect-[5/4] w-full rounded-3xl ring-1 ring-beige-dark/50 sm:aspect-[4/3] lg:aspect-[7/6]"
+            // Half the height it used to be below lg (was 5/4, then 4/3): on a
+            // phone this portrait ate most of a screen for one supporting
+            // photo. The lg sticky column keeps the taller 7/6 crop, where the
+            // height is doing real work beside the step list.
+            className="aspect-[5/2] w-full rounded-3xl ring-1 ring-beige-dark/50 sm:aspect-[8/3] lg:aspect-[7/6]"
             // Capped at the real rendered width. The default sizes string made
             // the browser pick the 3840w candidate for a slot that is never
             // wider than ~620px, so it downloaded roughly six times the bytes
             // it needed and left the box empty for that much longer.
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 92vw, 620px"
-            objectPosition="center 28%"
+            // 38% rather than 28%: the letterbox crop below lg is a much
+            // narrower slice of the same portrait, and at 28% it cut the
+            // faces off at the chin.
+            objectPosition="center 38%"
           />
 
           {/* The two rooms the steps above actually describe - the waiting area
@@ -176,7 +183,7 @@ export default function ProcessSteps({
                 file="lp/reception-area.webp"
                 src="/images/lp/reception-area.webp"
                 dimensions="1400 × 1000"
-                alt="The reception and waiting area at Hampton Family Dental in Southampton, PA"
+                alt="The skylit waiting room at Hampton Family Dental in Southampton, PA, with cushioned seating and the reception window"
                 className="aspect-[7/5] w-full rounded-2xl ring-1 ring-beige-dark/50"
                 sizes="(max-width: 1024px) 50vw, 23vw"
               />
@@ -191,7 +198,7 @@ export default function ProcessSteps({
                 file="lp/treatment-room.webp"
                 src="/images/lp/treatment-room.webp"
                 dimensions="1400 × 1000"
-                alt="A bright, modern treatment room at Hampton Family Dental in Southampton, PA"
+                alt="A treatment room at Hampton Family Dental in Southampton, PA, with a dental chair and a wall-mounted screen"
                 className="aspect-[7/5] w-full rounded-2xl ring-1 ring-beige-dark/50"
                 sizes="(max-width: 1024px) 50vw, 23vw"
               />
