@@ -93,7 +93,7 @@ export default function Audience() {
                 and ring give the card its weight instead. */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(75%_65%_at_10%_0%,rgba(15,138,109,0.10),transparent_70%),radial-gradient(65%_60%_at_100%_100%,rgba(30,96,118,0.10),transparent_72%)]"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(75%_65%_at_10%_0%,rgba(30,96,118,0.10),transparent_70%),radial-gradient(65%_60%_at_100%_100%,rgba(30,96,118,0.10),transparent_72%)]"
             />
 
             <div className="relative">

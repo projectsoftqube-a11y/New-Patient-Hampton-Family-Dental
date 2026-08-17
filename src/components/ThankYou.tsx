@@ -52,7 +52,7 @@ export default function ThankYou() {
           rather than a bare system page. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(45%_40%_at_50%_0%,rgba(15,138,109,0.12),transparent_70%),radial-gradient(40%_45%_at_0%_100%,rgba(30,96,118,0.10),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(45%_40%_at_50%_0%,rgba(30,96,118,0.12),transparent_70%),radial-gradient(40%_45%_at_0%_100%,rgba(30,96,118,0.10),transparent_70%)]"
       />
 
       <div className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col items-center justify-center px-4 py-8 text-center sm:px-6 sm:py-6 lg:py-8">
@@ -112,7 +112,7 @@ export default function ThankYou() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.32 }}
-          className="mt-5 inline-flex w-full max-w-xs shrink-0 items-center justify-center gap-2 rounded-2xl bg-urgent px-5 py-3 text-[14.5px] font-bold text-white shadow-[0_14px_36px_-10px_rgba(15,138,109,0.7)] transition-colors hover:bg-urgent-dark active:scale-[0.99] sm:mt-4 sm:w-auto lg:mt-5 lg:py-3.5 lg:text-[15px]"
+          className="mt-5 inline-flex w-full max-w-xs shrink-0 items-center justify-center gap-2 rounded-2xl bg-urgent px-5 py-3 text-[14.5px] font-bold text-white shadow-[0_14px_36px_-10px_rgba(30,96,118,0.7)] transition-colors hover:bg-urgent-dark active:scale-[0.99] sm:mt-4 sm:w-auto lg:mt-5 lg:py-3.5 lg:text-[15px]"
         >
           <Phone className="h-4 w-4 shrink-0" strokeWidth={2.6} aria-hidden />
           <span className="truncate">Prefer to talk? {PHONE_DISPLAY}</span>

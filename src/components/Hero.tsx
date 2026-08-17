@@ -41,7 +41,7 @@ export default function Hero() {
           is the first thing on the page. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(40%_45%_at_0%_0%,rgba(30,96,118,0.10),transparent_70%),radial-gradient(35%_40%_at_25%_100%,rgba(15,138,109,0.10),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(40%_45%_at_0%_0%,rgba(30,96,118,0.10),transparent_70%),radial-gradient(35%_40%_at_25%_100%,rgba(30,96,118,0.10),transparent_70%)]"
       />
 
       {/* ── Photograph - full-bleed behind the section (desktop) ── */}
@@ -111,7 +111,7 @@ export default function Hero() {
                   className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-urgent/45 motion-safe:animate-[lp-halo_4.5s_ease-out_infinite]"
                 />
 
-                <span className="relative isolate inline-flex max-w-full items-center gap-2 overflow-hidden rounded-full bg-urgent px-3.5 py-1.5 shadow-[0_6px_18px_-8px_rgba(15,138,109,0.9)]">
+                <span className="relative isolate inline-flex max-w-full items-center gap-2 overflow-hidden rounded-full bg-urgent px-3.5 py-1.5 shadow-[0_6px_18px_-8px_rgba(30,96,118,0.9)]">
                   <span
                     aria-hidden
                     className="pointer-events-none absolute inset-y-0 -left-1/3 z-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent motion-safe:animate-[lp-sheen_5.5s_ease-in-out_infinite]"
@@ -209,7 +209,7 @@ export default function Hero() {
                 type="button"
                 onClick={() => openBooking("hero-book")}
                 data-cta="hero-book"
-                className="group flex min-w-0 items-center justify-center gap-2.5 rounded-2xl bg-urgent px-4 py-2.5 text-white shadow-[0_14px_32px_-10px_rgba(15,138,109,0.65)] transition-all hover:bg-urgent-dark hover:shadow-[0_18px_40px_-10px_rgba(15,138,109,0.75)] active:scale-[0.99] sm:py-4"
+                className="group flex min-w-0 items-center justify-center gap-2.5 rounded-2xl bg-urgent px-4 py-2.5 text-white shadow-[0_14px_32px_-10px_rgba(30,96,118,0.65)] transition-all hover:bg-urgent-dark hover:shadow-[0_18px_40px_-10px_rgba(30,96,118,0.75)] active:scale-[0.99] sm:py-4"
               >
                 <CalendarDays className="h-4 w-4 shrink-0" strokeWidth={2.6} aria-hidden />
                 <span className="min-w-0 text-left">

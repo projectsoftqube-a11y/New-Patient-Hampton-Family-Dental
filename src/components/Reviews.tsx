@@ -57,7 +57,7 @@ function GoogleG({ className = "" }: { className?: string }) {
  */
 const AVATAR_TONES = [
   "bg-[#1E6076] text-white",
-  "bg-[#0F8A6D] text-white",
+  "bg-[#5C7098] text-white",
   "bg-[#B8531F] text-white",
   "bg-[#5B4B8A] text-white",
   "bg-[#1B7A9E] text-white",
@@ -169,7 +169,7 @@ export default function Reviews({
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(55%_50%_at_15%_0%,rgba(30,96,118,0.06),transparent_70%),radial-gradient(45%_50%_at_90%_100%,rgba(15,138,109,0.06),transparent_72%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(55%_50%_at_15%_0%,rgba(30,96,118,0.06),transparent_70%),radial-gradient(45%_50%_at_90%_100%,rgba(30,96,118,0.06),transparent_72%)]"
       />
 
       {/* ── Header ──

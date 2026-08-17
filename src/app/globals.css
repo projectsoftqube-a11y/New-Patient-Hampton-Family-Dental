@@ -30,15 +30,22 @@
   --color-steel-light: #A9B7D2;
   --color-steel-dark: #5C7098;
 
-  /* Accent - fresh medical teal-green. NEW on this landing page; the parent
-     site has no accent colour because it never needed one. Reads as "go /
-     healthy" rather than alarm, and sits cleanly beside petrol on the light
-     surfaces. Passes AA with white text at 14px+. Token names stay
-     "urgent-*" so every existing call site keeps working. */
-  --color-urgent: #0F8A6D;
-  --color-urgent-dark: #0B6D56;
-  --color-urgent-light: #17B08B;
-  --color-urgent-soft: #ECF9F5;
+  /* CTA / action colour.
+
+     This was a teal-green accent invented for this landing page. The client
+     asked for the parent site's colours instead, and hamptonfamilydentist.com
+     ships no green at all - its stylesheet defines only the petrol, steel and
+     cool-neutral tokens mirrored above. So the CTA now runs on the same petrol
+     family as the rest of the brand.
+
+     Token names stay "urgent-*" so every existing call site keeps working;
+     "urgent" now means "the action colour", not a separate hue. Hierarchy is
+     carried by weight and surface - solid petrol fill for the primary action,
+     outline or steel for everything secondary - rather than by a second hue. */
+  --color-urgent: #1E6076;         /* petrol - primary CTA fill (AA on white) */
+  --color-urgent-dark: #143C50;    /* logo deep petrol - hover / pressed */
+  --color-urgent-light: #3B8299;   /* lighter petrol - subtle fills, focus rings */
+  --color-urgent-soft: #EAF1F5;    /* petrol tinted wash - soft backgrounds */
 
   /* Emergency - true alert red. Reserved for genuine urgency ONLY: the
      "Emergency Dentist" badge, severe-symptom warnings, the go-to-the-ER
@@ -163,7 +170,7 @@
 
    lp-halo is a ring that expands out of the pill's own edge and fades - a
    single clean stroke rather than a blurred glow. A blur-based halo bled a
-   green haze into the near-white hero wash behind it, which read as a
+   coloured haze into the near-white hero wash behind it, which read as a
    rendering artefact rather than an effect.
 
    The two cycles are deliberately different lengths: two loops on the same

@@ -27,7 +27,7 @@ export default function OfferBand() {
         >
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_55%_at_50%_-10%,rgba(15,138,109,0.30),transparent_70%),radial-gradient(50%_60%_at_100%_110%,rgba(30,96,118,0.45),transparent_72%)]"
+            className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_55%_at_50%_-10%,rgba(30,96,118,0.30),transparent_70%),radial-gradient(50%_60%_at_100%_110%,rgba(30,96,118,0.45),transparent_72%)]"
           />
           <div
             aria-hidden
@@ -65,7 +65,7 @@ export default function OfferBand() {
             type="button"
             onClick={() => openBooking("offer-book")}
             data-cta="offer-book"
-            className="mt-7 inline-flex w-full max-w-xs items-center justify-center gap-2 rounded-2xl bg-urgent px-5 py-3.5 text-[15px] font-bold text-white shadow-[0_14px_36px_-8px_rgba(15,138,109,0.8)] transition-all hover:bg-urgent-dark active:scale-[0.99] sm:w-auto sm:text-[16px]"
+            className="mt-7 inline-flex w-full max-w-xs items-center justify-center gap-2 rounded-2xl bg-urgent px-5 py-3.5 text-[15px] font-bold text-white shadow-[0_14px_36px_-8px_rgba(30,96,118,0.8)] transition-all hover:bg-urgent-dark active:scale-[0.99] sm:w-auto sm:text-[16px]"
           >
             <CalendarDays className="h-4 w-4 shrink-0" strokeWidth={2.6} aria-hidden />
             <span className="truncate">Book my first visit</span>
