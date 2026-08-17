@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { AlertCircle, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 import { sendEnquiry } from "@/lib/sendEnquiry";
+import { trackFormSubmitSuccess } from "@/lib/gtm";
 import { isValid, validateName, validatePhone } from "@/lib/validation";
 import { PHONE_DISPLAY, PHONE_TEL, SHOW_REVIEW_NOTES } from "@/lib/lp.config";
 
@@ -121,6 +122,11 @@ export default function LeadForm({
       setSubmitError(err);
       return;
     }
+
+    // GTM conversion event. Fired here - after the enquiry is confirmed sent,
+    // before the /thank-you navigation - so it only ever counts a real
+    // submission, and so the push lands while this page is still mounted.
+    trackFormSubmitSuccess();
 
     setValues({ name: "", phone: "", symptom: "" });
     onSuccess?.();
