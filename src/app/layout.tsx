@@ -13,6 +13,23 @@ import "./globals.css";
 const GTM_ID = "GTM-WLNN5FJV";
 
 /**
+ * Google tag (gtag.js) IDs - GA4 property and Google Ads conversion account.
+ *
+ * Deliberately hardcoded alongside GTM rather than routed through it. Google's
+ * own instructions offer both paths; the office asked for the direct install so
+ * the Ads conversion works without any container configuration.
+ *
+ * ⚠️ Because this is hardcoded, a Google Ads Conversion tag must NOT also be
+ * created inside GTM-WLNN5FJV for AW-18372303940 - the conversion would fire
+ * twice and every reported conversion would be double-counted.
+ *
+ * The conversion event itself lives on the conversion page only:
+ * src/app/thank-you/page.tsx.
+ */
+const GA4_ID = "G-1KLWZ2499J";
+const GOOGLE_ADS_ID = "AW-18372303940";
+
+/**
  * Type pairing - chosen for this page specifically, not inherited from the
  * main site.
  *
@@ -76,6 +93,25 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','${GTM_ID}');`}
+        </Script>
+
+        {/* ── Google tag (gtag.js) - GA4 + Google Ads ──
+            Sitewide, as the Ads setup instructions require. `gtag` is defined
+            on window here so the conversion snippet on /thank-you can call it;
+            defining it inside a module scope would leave that page with an
+            undefined function. */}
+        <Script
+          id="gtag-src"
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
+        />
+        <Script id="gtag-config" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+window.gtag = gtag;
+gtag('js', new Date());
+gtag('config', '${GA4_ID}');
+gtag('config', '${GOOGLE_ADS_ID}');`}
         </Script>
       </head>
 

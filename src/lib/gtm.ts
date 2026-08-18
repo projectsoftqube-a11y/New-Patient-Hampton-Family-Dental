@@ -9,6 +9,8 @@
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
+    /** Defined by the gtag.js shim in src/app/layout.tsx. */
+    gtag?: (...args: unknown[]) => void;
   }
 }
 

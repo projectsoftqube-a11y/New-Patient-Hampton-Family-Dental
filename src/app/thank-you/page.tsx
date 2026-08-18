@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import AdsConversion from "@/components/AdsConversion";
 import ThankYou from "@/components/ThankYou";
 
 /**
@@ -23,5 +24,13 @@ export const metadata: Metadata = {
 };
 
 export default function ThankYouPage() {
-  return <ThankYou />;
+  return (
+    <>
+      {/* Google Ads "Submit lead form" conversion. Renders nothing; fires once
+          on mount. This page is the conversion page, so reaching it *is* the
+          conversion. */}
+      <AdsConversion />
+      <ThankYou />
+    </>
+  );
 }
