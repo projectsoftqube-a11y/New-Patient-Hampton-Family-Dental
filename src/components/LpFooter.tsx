@@ -43,6 +43,7 @@ export default function LpFooter({ year }: { year: number }) {
             alt="Hampton Family Dental"
             width={1282}
             height={321}
+            quality={90}
             className="h-8 w-auto sm:h-10"
           />
         </Link>

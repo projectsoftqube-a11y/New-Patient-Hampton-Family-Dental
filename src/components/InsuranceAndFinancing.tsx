@@ -57,6 +57,9 @@ function CarrierCell({
           alt={`${carrier.name} accepted at Hampton Family Dental`}
           width={240}
           height={80}
+          // Logos are flat colour with hard edges - exactly what low-quality
+          // re-encoding smears. See `qualities` in next.config.ts.
+          quality={90}
           className="max-h-8 w-auto max-w-full object-contain sm:max-h-9"
         />
       ) : (

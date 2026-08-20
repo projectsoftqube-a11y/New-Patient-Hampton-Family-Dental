@@ -94,6 +94,12 @@ export default function ImageSlot({
           fill
           priority={priority}
           sizes={sizes}
+          // The source files are already compressed WebP. Next's default q75
+          // re-encodes them a second time, and lossy-on-lossy is what made the
+          // photos read as soft. 90 keeps the detail that survives in the
+          // source; see `qualities` in next.config.ts, which must list any
+          // value used here or the request 400s.
+          quality={90}
           className={cn("object-cover", imgClassName)}
           style={{ objectPosition }}
           {...(noBlur

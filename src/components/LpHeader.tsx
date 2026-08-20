@@ -31,6 +31,9 @@ export default function LpHeader() {
             width={1282}
             height={321}
             priority
+            // The wordmark is fine lettering scaled down hard - the first
+            // thing on the page to look soft if it is re-encoded cheaply.
+            quality={90}
             className="h-8 w-auto sm:h-10"
           />
         </Link>
